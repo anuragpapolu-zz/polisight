@@ -1,0 +1,108 @@
+<head>
+  <title>health.me</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+  <link href="main.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="
+  stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  {{>appBody}}
+</body>
+
+<template name="appBody">
+  {{#unless userLoading}}
+    {{#if currentUser}}
+      {{>home}}
+    {{else}}
+      {{>signin}}
+    {{/if}}
+  {{/unless}}
+</template>
+
+<template name="signin">
+  <div class="page-signin">
+    <div class="container">
+      <form class="form-signin">
+        <h2 class="form-signin-heading">health.me</h2>
+        <hr>
+        {{#if errorMessages}}
+          <div class="list-errors">
+            {{#each errorMessages}}
+              <div class="list-item">{{this}}</div>
+            {{/each}}
+          </div>
+        {{/if}}
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+
+        {{#if reg}}
+          <button class="btn btn-lg btn-info btn-block" type="submit">Register</button>
+          <hr>
+          <a class="btn btn-lg btn-primary btn-block goLog">Sign in</a>
+        {{else}}
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+          <hr>
+          <a class="btn btn-lg btn-info btn-block goReg">Register</a>
+        {{/if}}
+      </form>
+    </div>
+  </div>
+</template>
+
+<template name="home">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Health.me</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="." class="logout">Log Out</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+  <div class="container page-home">
+    <div class="row-fluid">
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Your Profile</h3>
+          </div>
+          <div class="panel-body">
+            <div class="thumbnail">
+              <img src="https://nyoobserver.files.wordpress.com/2016/08/screen-shot-2016-08-24-at-11-01-59-am.png?w=635" alt="...">
+            </div>
+            <h3>Martin H. Coger, PhD </h3>
+            <h5>Palo Alto Hospital, Mountain View </h5>
+            <p>{{currentUser.email}}</p>
+            <a href="#" class="btn btn-default">Edit Profile</a>
+          </div>
+        </div> 
+      </div> 
+      <div class="col-md-8" id="postList">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Patient Reports</h3>
+          </div>
+          <div class="panel-body">
+            <p class="lead nothing-here text-center">Nothing here.</p>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </div>
+</template>
