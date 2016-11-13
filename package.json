@@ -5,6 +5,7 @@
     "start": "meteor run"
   },
   "dependencies": {
+    "chart.js": "^2.4.0",
     "firebase": "^3.4.1",
     "meteor-node-stubs": "~0.2.0",
     "request": "^2.75.0"

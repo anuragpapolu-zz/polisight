@@ -1,0 +1,56 @@
+<template name="article">
+	<div class="thumbnail">
+	   	<img src="{{urlToImage}}" alt="" class="hidden" />
+	  	<div class="caption">
+	  		<h3 class="text-center">{{title}}</h3>
+	  		{{#unless analyzing}}		       	
+		       	{{#if author}}
+		       		<p class="text-center">by {{author}}</p>
+		       	{{/if}}
+		        <p class="text-muted text-center">{{date}}</p>
+		        <hr>
+		        {{#if summary}}
+			       	<p>
+			       		{{summary}}
+			       	</p>
+			       	<hr>
+			    {{/if}}
+		       	<p>
+		       		<a class="btn btn-primary analyze"><i class="glyphicon glyphicon-zoom-in"></i> Analyze</a>
+		       		<a href="{{url}}" class="btn btn-default" target="_blank">&#187; Read</a>
+		       	</p>
+		    {{else}}
+				<a class="btn btn-default analyze"><i class="glyphicon glyphicon-zoom-out"></i> Go Back</a>
+				<br>
+				<p></p>
+				{{#with analysis}}
+					{{#each analysis}}
+						{{#if score overall_sentiment_score}}						
+							<div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a role="button" data-toggle="collapse">
+							          {{name}}
+							        </a>
+							      </h4>
+							    </div>
+							    <div class="panel-body">
+							    	<p>{{bias overall_sentiment_score}} spin</p>
+							   	    <div class="progress">
+									  <div class="progress-bar {{progClass overall_sentiment_score}} progress-bar-striped active" role="progressbar" style="width:{{score overall_sentiment_score}}%" aria-valuemin="-1" aria-valuemax="1">
+									  </div>
+									</div>
+									{{#with emotions}}
+									   {{>graph}}
+									{{/with}} 
+							    </div>
+							</div>
+						{{/if}}
+					{{/each}}
+				{{else}}
+					<p>Loading Analysis...</p>
+				{{/with}}
+		    {{/unless}}
+	    </div>
+    </div>
+</template>
